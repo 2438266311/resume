@@ -4,6 +4,39 @@
 <head>
  <script src="//at.alicdn.com/t/font_638817_z7kwtws8d6g8pvi.js"></script>
  <style type="text/css">
+ .loading{
+    width:200px;
+    height:200px;
+    position: relative;
+  }
+  
+  .loading::before,.loading::after{
+    content: '';
+    position: absolute;
+    width:10px;
+    height:10px;
+    background: black;
+    border-radius: 50%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    animation: s 1.5s linear infinite;
+  }
+  
+  .loading::after{
+    animation-delay: 0.75s;
+  }
+  
+  @keyframes s{
+    0%{
+      width: 0; height: 0;opacity:1;
+    }
+    100%{
+      width:100px; height:100px;opacity:0;
+    }
+  }
     .icon {
         width: 1em; height: 1em;
         vertical-align: -0.15em;
@@ -25,13 +58,12 @@
  </style>
  <title>徐敬梓的个人简历</title>
  <link rel="stylesheet" href="./main.css">
- <link rel="stylesheet" href="./loading.css">
 </head>
     <body>
         <div id="siteWelcome" class="site-welcome active">
             <div class="loading"></div>
         </div>        
-        <div class="topNavBar">
+        <div id="topNavBar" class="topNavBar">
             <div class="topNavBar-inner clearfix">
                     <a class="logo" href="#" alt="logo" style="float: left;">
                             <span class="rs">RS</span>
@@ -41,8 +73,20 @@
                             <ul class="clearfix">
                                 <li><a href="#">关于</a></li>
                                 <li><a href="#">技能</a></li>
-                                <li><a href="#">作品</a></li>
-                                <li><a href="#">博客</a></li>
+                                <li class="menuTigger"><a href="#">作品</a>
+                                    <ul class="submenu">
+                                        <li>作品1</li>
+                                        <li>作品2</li>
+                                        <li>作品3</li>
+                                    </ul>
+                                </li>
+                                <li class="menuTigger"><a href="#">博客</a>
+                                    <ul class="submenu">
+                                        <li>博客1</li>
+                                        <li>博客2</li>
+                                        <li>博客3</li>
+                                    </ul>
+                                </li>
                                 <li><a href="#">日历</a></li>
                                 <li><a href="#">联系方式</a></li>
                                 <li><a href="#">其他</a></li>
@@ -206,7 +250,27 @@
             
         </section>
         <script>
-            siteWelcome.classList.remove('active')
+            setTimeout(function(){
+                siteWelcome.classList.remove('active')
+            },1000)
+
+            window.onscroll = function(xxxxx){
+                if(window.scrollY > 0){
+                    topNavBar.classList.add('sticky')
+                }else{
+                    topNavBar.classList.remove('sticky')
+                }
+            }
+
+            let liTags = document.getElementsByClassName('menuTigger')
+            for(let i=0; i<liTags.length; i++){
+                liTags[i].onmouseenter = function(x){
+                    x.currentTarget.classList.add('active')
+                }
+                liTags[i].onmouseleave = function(x){
+                    x.currentTarget.classList.remove('active')
+                }
+            }
         </script>
     </body>
 </html>
